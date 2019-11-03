@@ -1,4 +1,5 @@
 use std::env;
+use dotenv::dotenv;
 
 use serenity::{
     model::{channel::Message, gateway::Ready},
@@ -24,6 +25,8 @@ impl EventHandler for Handler {
 }
 
 fn main() {
+    dotenv().ok();
+
     let token = env::var("DISCORD_TOKEN")
         .expect("Expected a token in the environment");
 
