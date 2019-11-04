@@ -6,23 +6,12 @@ use serenity::{
     prelude::*,
 };
 
-mod message_handler;
-use message_handler::message_handler;
+mod handlers;
+mod commands;
+
+use handlers::message_handler;
 
 struct Handler;
-
-impl EventHandler for Handler {
-    fn message(&self, ctx: Context, msg: Message) {
-        match message_handler(ctx, msg) {
-            Ok(_) => (),
-            Err(err) => println!("{}", err),
-        }
-    }
-
-    fn ready(&self, _: Context, ready: Ready) {
-        println!("{} is connected!", ready.user.name);
-    }
-}
 
 fn main() {
     dotenv().ok();
@@ -35,5 +24,17 @@ fn main() {
 
     if let Err(why) = client.start() {
         println!("Client error: {:?}", why);
+    }
+}
+
+impl EventHandler for Handler {
+    fn message(&self, ctx: Context, msg: Message) {
+        if let Err(why) = message_handler(ctx, msg) {
+            println!("Error when responding to message: {}", why);
+        }
+    }
+
+    fn ready(&self, _: Context, ready: Ready) {
+        println!("{} is connected!", ready.user.name);
     }
 }
