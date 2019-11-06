@@ -14,5 +14,5 @@ jobs:
     - name: Run tests
       run: cargo test --verbose
     - name: Clippy
-    - uses: actions-rs/clippy-check@v1.0.0
+      uses: actions-rs/clippy-check@v1.0.0
       
