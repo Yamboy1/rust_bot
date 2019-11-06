@@ -15,4 +15,7 @@ jobs:
       run: cargo test --verbose
     - name: Clippy
       uses: actions-rs/clippy-check@v1.0.0
+      with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          args: --all-features
       
