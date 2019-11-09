@@ -1,4 +1,6 @@
 use regex::CaptureMatches;
+use crate::commands::Command;
+use crate::commands::premade::PingCommand;
 
 pub fn join_args(iter: CaptureMatches) -> String {
     iter
@@ -6,11 +8,4 @@ pub fn join_args(iter: CaptureMatches) -> String {
         .collect::<String>()
 }
 
-#[macro_export]
-macro_rules! command_hashmap {
-    ($( $command:expr ), *) => {{
-        let mut hashmap = HashMap::new();
-        $( hashmap.extend($command.get_info().names.into_iter().map(|name| (name, &$command as &dyn Command))); )*
-        hashmap
-    }};
-}
+pub struct IsOriginal(pub &'static (dyn Command + Sync), pub bool);
