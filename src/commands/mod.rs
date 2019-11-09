@@ -1,5 +1,4 @@
 use std::error::Error;
-use std::collections::HashMap;
 use regex::CaptureMatches;
 use serenity::{
     model::prelude::Message,
@@ -15,5 +14,5 @@ pub struct Info {
 
 pub trait Command {
     fn get_info(&self) -> Info;
-    fn run(&self, ctx: &Context, msg: &Message, _args: CaptureMatches, _handler: &YHandler) -> Result<(), Box<dyn Error>>;
+    fn run(&self, ctx: &Context, msg: &Message, args: CaptureMatches, handler: &YHandler) -> Result<(), Box<dyn Error>>;
 }

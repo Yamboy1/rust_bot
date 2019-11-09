@@ -50,9 +50,9 @@ impl Command for HelpCommand {
         }
     }
 
-    fn run(&self, ctx: &Context, msg: &Message, args: CaptureMatches, handler: &YHandler) -> Result<(), Box<dyn Error>> {
-        let mut commands = handler.commands.values().into_iter()
-            .filter(|command: &&IsOriginal| command.1 == true)
+    fn run(&self, ctx: &Context, msg: &Message, _args: CaptureMatches, handler: &YHandler) -> Result<(), Box<dyn Error>> {
+        let mut commands = handler.commands.values()
+            .filter(|command: &&IsOriginal| command.1)
             .map(|command: &IsOriginal| command.0.get_info().names.get(0).cloned().unwrap());
         let message = format!("My commands are: {}", commands.join(", "));
         msg.channel_id.say(&ctx.http, message)?;

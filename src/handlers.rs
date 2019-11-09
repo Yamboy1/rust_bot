@@ -1,5 +1,4 @@
 use std::error::Error;
-use std::borrow::Borrow;
 use indexmap::IndexMap;
 use regex::{Regex, escape as regex_escape};
 use serenity::{
@@ -38,7 +37,7 @@ fn command_hashmap(vec: Vec<&'static (dyn Command + Sync)>) -> IndexMap<&'static
 
 impl EventHandler for YHandler {
     fn message(&self, ctx: Context, msg: Message) {
-        if msg.author.bot == true { return () }
+        if msg.author.bot { return }
         if let Err(why) = command_handler(ctx, msg, self) {
             println!("Error when responding to message: {}", why);
         }

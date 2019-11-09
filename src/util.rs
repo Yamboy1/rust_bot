@@ -1,6 +1,5 @@
 use regex::CaptureMatches;
 use crate::commands::Command;
-use crate::commands::premade::PingCommand;
 
 pub fn join_args(iter: CaptureMatches) -> String {
     iter
